@@ -29,7 +29,7 @@ git clone git@github.com:wangkaiwd/monitor-fe.git
 pnpm install
 pnpm demo:js
 ```
-If you want to debug source code, you can write `debugger` statement where you want to dive in, then debugger it in chrome devtool source panel. Please don't forget delete `debugger` after debug.
+If you want to debug source code, you can write `debugger` statement where you want to dive in, then debugger it in chrome devtool source panel. Please don't forget delete `debugger` in source code after debug.
 
 Publish to npm:
 ```shell
