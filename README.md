@@ -32,6 +32,8 @@ pnpm demo:js
 If you want to debug source code, you can write `debugger` statement where you want to dive in, then debugger it in chrome devtool source panel. Please don't forget delete `debugger` in source code after debug.
 
 Publish to npm:
+* First, you should set `GH_TOKEN` in environment variable, refer to [here](https://github.com/lerna/lerna/tree/main/libs/commands/version#--create-release-type)
+* Then execute `release` script
 ```shell
 pnpm release patch
 ```
