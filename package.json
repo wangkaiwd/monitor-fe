@@ -8,7 +8,8 @@
 		"test:coverage": "vitest --coverage",
 		"server": "tsx watch ./server/index.ts",
 		"demo:js": "pnpm -F './playground/vanilla' dev",
-		"release": "pnpm build && lerna publish"
+		"release": "pnpm clean && pnpm build && lerna publish",
+		"clean": "rm -rf ./packages/*/dist"
 	},
 	"devDependencies": {
 		"@koa/bodyparser": "^5.1.1",
