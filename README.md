@@ -1,5 +1,8 @@
 ## monitor-fe
 
+> [!WARNING]  
+> This is a demo project, don't use in it production
+
 JS SDK of web monitor for error 、performance and behavior, help developer known about usage of your website
 
 ### Install
@@ -39,3 +42,10 @@ pnpm release patch
 ```
 
 `patch` can replace with any release type
+
+### Reference
+
+- [web-tracing](https://github.com/M-cheng-web/web-tracing)
+- [mitojs](https://github.com/mitojs/mitojs)
+- [monitor-demo](https://github.com/woai3c/monitor-demo)
+- [web-see](https://github.com/xy-sea/web-see)
