@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+<div>content</div>
+<script>
+  // immediate execute when page render
+  // const observer = new PerformanceObserver((list) => {
+  //   list.getEntries().forEach((entry) => {
+  //     console.log(entry)
+  //     console.log('entry', entry.loadEventEnd, entry.loadEventStart)
+  //     const loadTime = entry.loadEventEnd - entry.loadEventStart
+  //     console.log('time', loadTime)
+  //   })
+  // })
+  //
+  // observer.observe({ entryTypes: ['navigation'] })
+  // window.addEventListener('load', () => {
+  //   // 1. want to get paint info must execute on load event
+  //   // 2. execute in js main thread directly can not get paint dinfo
+  //   const entries = performance.getEntriesByType('paint')
+  //   // const entries = performance.getEntries()
+  //   console.log('entries', entries)
+  // })
+  const getEntriesDirectly = () => {
+    const entries = performance.getEntries()
+    console.log('entries', entries)
+  }
+  // getEntriesDirectly()
+
+  const getPaintEntryByObserver = () => {
+    window.addEventListener('load', () => {
+      performance.mark('load')
+    })
+    const observer = new PerformanceObserver((entries) => {
+      console.log('entries-observer1', entries.getEntries())
+    })
+    observer.observe({
+      entryTypes: ['largest-contentful-paint', 'paint', 'mark'],
+    })
+  }
+
+  getPaintEntryByObserver()
+</script>
+</body>
+</html>

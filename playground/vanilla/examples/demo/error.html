@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<!--	<link rel="stylesheet" href="https://invalid-url.com">-->
+</head>
+<body>
+<button id="jsError">js error</button>
+<button id="promiseError">promise error</button>
+<button id="fetchError">fetch error</button>
+<button id="xhrError">xhr error</button>
+<button id="assetsError">resource error</button>
+<button id="batchError">batch error 10</button>
+<!-- todo: Vue + React error handle -->
+<script>
+  const $ = (className) => {
+    return document.querySelector(className)
+  }
+
+  const errorTrigger = () => {
+    $('#jsError').addEventListener('click', () => {
+      throw new Error('This is a JavaScript error!')
+    })
+
+    $('#promiseError').addEventListener('click', () => {
+      Promise.reject('This is a Promise rejection!')
+    })
+
+    $('#fetchError').addEventListener('click', () => {
+      fetch('https://invalid-url.com')
+    })
+    $('#xhrError').addEventListener('click', () => {
+      // cors error
+      const xhr = new XMLHttpRequest()
+      xhr.open('GET', 'http://localhost:3000/errors/demo?a=1&b=2')
+      // 404 in myself server domain
+      // xhr.open('GET', 'http://localhost:3000/errors/upload1')
+      // todo: Why this not trigger cors ?
+      // xhr.open('GET', 'http://localhost:4000/errors/upload1')
+      // another domain
+      // xhr.open('GET', 'http://www.baidu.com/errors/upload1')
+      xhr.send()
+    })
+
+    $('#assetsError').addEventListener('click', () => {
+      const img = document.createElement('img')
+      img.src = 'invalid-image-url.jpg'
+      img.onerror = () => {
+        console.log('Image failed to load')
+      }
+      document.body.appendChild(img)
+    })
+
+    $('#batchError').addEventListener('click', () => {
+      for (let i = 0; i < 10; i++) {
+        // What scenario will happen batch error ?
+        $('#jsError').click()
+      }
+    })
+  }
+  errorTrigger()
+
+  const errorListener = () => {
+    // js error
+    window.addEventListener('error', (...args) => {
+      console.log('args window error', args)
+    })
+
+    // resource loading failed must set usecapture is true
+    document.addEventListener('error', (ev) => {
+      console.log('args document error', ev)
+    }, true)
+
+    window.addEventListener('unhandledrejection', (ev) => {
+      console.log('unhandledrejection', ev)
+    })
+
+    // request error log:
+    // request: url,headers,params,status
+    // response: data
+
+    const oldFetch = fetch
+    fetch = (...args) => {
+      const [url, options] = args
+      return oldFetch.apply(window, args).then((res) => {
+        if (!response.ok) {
+          res.text().then((value) => {
+            console.log('fetchCollect1', {
+              url,
+              status: res.status,
+              method: options?.method || 'GET',
+              body: options?.body,
+              response: value,
+            })
+          })
+        }
+        return res
+      }).catch((err) => {
+        console.dir(err)
+        console.log('fetchCollect', {
+          url,
+          method: options?.method || 'GET',
+          body: options?.body,
+          error: err,
+        })
+        return Promise.reject(err)
+      })
+    }
+    // xhr can't get request headers:
+    // https://github.com/jquery/jquery/issues/1700
+    // open
+    let currentHttpInfo = null
+    const oldXhrOpen = XMLHttpRequest.prototype.open
+    XMLHttpRequest.prototype.open = function (...args) {
+      const [method, url] = args
+      currentHttpInfo = {
+        method,
+        url,
+      }
+      // console.log('xhr', args)
+      const result = oldXhrOpen.apply(this, args)
+      // console.log('this', this)
+      return result
+    }
+
+    // todo: custom error status code handler
+    const oldXhrSend = XMLHttpRequest.prototype.send
+    // send
+    XMLHttpRequest.prototype.send = function (arg) {
+      this.addEventListener('loadend', (ev) => {
+        console.log('loadend-args', ev)
+        const xhr = ev.target
+        const isError = xhr.status === 0 || !(xhr.status >= 200 && xhr.status <= 299)
+        if (isError) {
+          currentHttpInfo.status = xhr.status
+          currentHttpInfo.response = xhr.responseText
+          currentHttpInfo.body = arg
+          console.log('report http', currentHttpInfo)
+        }
+      })
+      return oldXhrSend.call(this, arg)
+    }
+
+  }
+  errorListener()
+  // new Image().src = 'abc.jpg'
+  // problems:
+  // 1. cors error: how to capture
+  // 2. new Image().src = 'abc.jpg': how to capture
+</script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<script type="module" src="/examples/error/index.ts"></script>
+</head>
+<body>
+<button id="jsError">js error</button>
+<button id="promiseError">promise error</button>
+<button id="xhrError">xhr error</button>
+<button id="assetsError">resource error</button>
+<img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Vitejs-logo.svg"/>
+<!-- todo: Vue + React error handle -->
+<script>
+  const $ = (className) => {
+    return document.querySelector(className)
+  }
+
+  const errorTrigger = () => {
+    $('#jsError').addEventListener('click', () => {
+      throw new Error('This is a JavaScript error!')
+    })
+    $('#promiseError').addEventListener('click', () => {
+      Promise.reject('This is a Promise rejection!')
+    })
+    $('#xhrError').addEventListener('click', () => {
+      // cors error
+      const xhr = new XMLHttpRequest()
+      xhr.open('GET', 'http://localhost:3000/errors/demo?a=1&b=2')
+      // 404 in myself server domain
+      // xhr.open('GET', 'http://localhost:3000/errors/upload1')
+      // todo: Why this not trigger cors ?
+      // xhr.open('GET', 'http://localhost:4000/errors/upload1')
+      // another domain
+      // xhr.open('GET', 'http://www.baidu.com/errors/upload1')
+      xhr.send(JSON.stringify({ a: 1 }))
+    })
+
+    $('#assetsError').addEventListener('click', () => {
+      const img = document.createElement('img')
+      img.src = 'invalid-image-url.jpg'
+      img.onerror = () => {
+        console.log('Image failed to load')
+      }
+      document.body.appendChild(img)
+
+      const script = document.createElement('script')
+      script.src = 'demo.js'
+      document.head.appendChild(script)
+    })
+  }
+  errorTrigger()
+</script>
+</body>
+</html>

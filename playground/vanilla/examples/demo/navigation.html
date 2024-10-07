@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+<div>
+  <button id="forward">前进</button>
+  <button id="back">后退</button>
+</div>
+<script>
+  const forward = document.querySelector('#forward')
+  const back = document.querySelector('#back')
+  forward.addEventListener('click', () => {
+    history.go(1)
+  })
+  back.addEventListener('click', () => {
+    history.go(-1)
+  })
+  // hash更改，不会触发页面刷新，即load事件也不会触发
+  window.addEventListener('hashchange', (ev) => {
+    console.log('hashchange', ev)
+  })
+  // a.html -> a.html#/1 : 更改hash不会触发页面更新
+
+  // 页面加载后触发
+  window.addEventListener('load', (ev) => {
+    console.log('load', ev)
+  })
+
+  // 更改hash也会触发？
+  window.addEventListener('popstate', (ev) => {
+    console.log('popstate', ev)
+  })
+
+  const historyChange = (...args) => {
+    console.log('history change', args)
+  }
+  const pushState = history.pushState
+  history.pushState = (...args) => {
+    historyChange(...args)
+    return pushState.apply(history, args)
+  }
+
+  const replaceState = history.replaceState
+  history.replaceState = (...args) => {
+    historyChange(...args)
+    return replaceState.apply(history, args)
+  }
+
+  // 实践记录
+  // 1. load 事件和 hashchange 事件按照预期执行
+  // 2. 通过pushState和replaceState来更新url, 由于浏览器没有事件可以直接监听这种情况的更改，所以可以重写这俩个方法，然后在调用方法时通知url更新
+  // 3. popstate 事件会在hash值更改，以及对pushState和replaceState触发的url更新的前进和后退时触发 （实践结论，没有找到文档记录）
+
+  // 结论：
+  // 1. 非 spa 应用，监听 load 事件
+  // 2. spa 应用：
+  //    2.1 hash路由：hashchange监听路由更改 + load 监听页面刷新
+  //    2.2 history路由：重写pushState和replaceState来触发更新事件，popstate事件监听前进后退，load 监听页面刷新
+  // 设计：将上报pv功能交给用户手动上报
+</script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{
+	"name": "monitor-fe",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "pnpm -F './packages/**' build",
+		"test": "vitest",
+		"test:coverage": "vitest --coverage",
+		"server": "tsx watch ./server/index.ts",
+		"demo:js": "pnpm -F './playground/vanilla' dev",
+		"release": "pnpm build && lerna publish"
+	},
+	"devDependencies": {
+		"@koa/bodyparser": "^5.1.1",
+		"@koa/cors": "^5.0.0",
+		"@koa/router": "^13.0.0",
+		"@rollup/plugin-commonjs": "^26.0.1",
+		"@rollup/plugin-json": "^6.1.0",
+		"@rollup/plugin-node-resolve": "^15.2.3",
+		"@types/jsdom": "^21.1.7",
+		"@types/koa": "^2.15.0",
+		"@types/koa__cors": "^5.0.0",
+		"@types/koa__router": "^12.0.4",
+		"@types/node": "^22.5.0",
+		"@types/qs": "^6.9.15",
+		"@vitest/coverage-v8": "^2.0.5",
+		"dts-bundle-generator": "^9.5.1",
+		"esbuild": "^0.24.0",
+		"jsdom": "^25.0.0",
+		"koa": "^2.15.3",
+		"lerna": "^8.1.8",
+		"rimraf": "^6.0.1",
+		"rollup": "^4.22.4",
+		"rollup-plugin-esbuild": "^6.1.1",
+		"tslib": "^2.7.0",
+		"tsx": "^4.19.1",
+		"typescript": "^5.5.4",
+		"vite": "^5.4.2",
+		"vite-tsconfig-paths": "^5.0.1",
+		"vitest": "^2.0.5"
+	},
+	"dependencies": {
+		"qs": "^6.13.0"
+	}
+}

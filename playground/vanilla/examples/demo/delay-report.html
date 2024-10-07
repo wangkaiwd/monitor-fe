@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<title>Script-based animation using requestAnimationFrame</title>
+<style>
+  div {
+    position: absolute;
+    left: 10px;
+    padding: 50px;
+    background: crimson;
+    color: white
+  }
+</style>
+<button onclick="start()">Click me to start!</button>
+<button onclick="stop()">Click me to stop!</button>
+<div id="animated">Hello there.</div>
+<script>
+  // let requestId = 0
+  // let animationStartTime = 0
+  //
+  // function animate (time) {
+  //   console.log('time', animationStartTime, time, time - animationStartTime)
+  //   document.getElementById('animated').style.left =
+  //     (time - animationStartTime) % 2000 / 4 + 'px'
+  //   requestId = window.requestAnimationFrame(animate)
+  // }
+  //
+  // function start () {
+  //   animationStartTime = window.performance.now()
+  //   requestId = window.requestAnimationFrame(animate)
+  // }
+  //
+  // function stop () {
+  //   if (requestId)
+  //     window.cancelAnimationFrame(requestId)
+  //   requestId = 0
+  // }
+
+  const element = document.getElementById('animated')
+  let start
+
+  function step (timestamp) {
+    if (start === undefined) {
+      start = timestamp
+    }
+    const elapsed = timestamp - start
+    // Math.min() is used here to make sure the element stops at exactly 200px
+    const shift = Math.min(0.1 * elapsed, 200)
+    element.style.transform = `translateX(${shift}px)`
+    if (shift < 200) {
+      requestAnimationFrame(step)
+    }
+  }
+
+  requestAnimationFrame(step)
+</script>

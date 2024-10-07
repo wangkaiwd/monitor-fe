@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+    .box {
+      border: 2px solid red;
+      width: 100px;
+      height: 100px;
+    }
+
+    .container {
+      height: 2000px;
+    }
+
+    .test {
+      background-color: blue;
+      color: white;
+    }
+
+    .hide {
+      display: none;
+    }
+	</style>
+</head>
+<body>
+<div class="test hide">this is dynamic content</div>
+<button class="button">click</button>
+<div class="container">
+
+</div>
+<div class="box"></div>
+<div class="container"></div>
+<script>
+  const $ = (className) => {
+    return document.querySelector(className)
+  }
+  const button = $('.button')
+  const test = $('.test')
+  const box = $('.box')
+
+  button.addEventListener('click', () => {
+    if (test.classList.contains('hide')) {
+      test.classList.remove('hide')
+    } else {
+      test.classList.add('hide')
+    }
+  })
+  const callback = (entries, observer) => {
+    console.log('entries', entries)
+    entries.forEach((entry) => {
+      if (entry.intersectionRatio > 0) {
+        console.log('in screen')
+      } else {
+        console.log('not in screen')
+      }
+    })
+  }
+  const observer = new IntersectionObserver(callback)
+  // observer.observe(box)
+  // observer.observe(test)
+</script>
+</body>
+</html>
