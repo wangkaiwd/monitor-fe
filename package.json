@@ -8,6 +8,7 @@
 		"test:coverage": "vitest --coverage",
 		"server": "tsx watch ./server/index.ts",
 		"demo:js": "pnpm -F './playground/vanilla' dev",
+		"demo:react": "pnpm -F './playground/react' dev",
 		"release": "pnpm clean && pnpm build && lerna publish",
 		"clean": "rm -rf ./packages/*/dist"
 	},

@@ -1,8 +1,5 @@
 ## monitor-fe
 
-> [!WARNING]  
-> This is a demo project, don't use in it production
-
 JS SDK of web monitor for error 、performance and behavior, help developer known about usage of your website
 
 ### Install
