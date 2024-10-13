@@ -1,5 +1,5 @@
-import { init } from '@monitor-fe/core'
+export * from '@monitor-fe/core'
+import ErrorBoundary from './src/ErrorBoundary'
 
-const a: string = 'a'
-console.log('a', a)
-console.log('core', init)
+export { ErrorBoundary }
+

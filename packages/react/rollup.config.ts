@@ -8,6 +8,6 @@ const pkg = JSON.parse(
 )
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-const externalKeys = Object.keys(pkg.dependencies)
+const externalKeys = [...Object.keys(pkg.dependencies), ...Object.keys(pkg.devDependencies)]
 
 export default createRollupOptions(__dirname, externalKeys, '__MonitorReact__')

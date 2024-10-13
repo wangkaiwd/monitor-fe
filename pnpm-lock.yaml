@@ -101,6 +101,13 @@ importers:
       '@monitor-fe/core':
         specifier: workspace:*
         version: link:../browser
+    devDependencies:
+      '@types/react':
+        specifier: ^18.3.10
+        version: 18.3.11
+      react:
+        specifier: ^18.3.1
+        version: 18.3.1
 
   playground/react:
     dependencies:

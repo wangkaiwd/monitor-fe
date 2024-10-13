@@ -44,6 +44,11 @@ export interface EventInfo {
   triggerTime: number
   eventType: EventType
   errorType?: ErrorType
+  lineno?: number
+  colno?: number
+  filename?: string
+  stack?: string
+  componentStack?: string // React component error stack
   message?: string
   batchErrorLength?: number
   batchErrorLastHappenTime?: number

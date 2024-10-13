@@ -1,17 +1,30 @@
 {
 	"compilerOptions": {
-		"target": "ES2022",
+		"target": "ES2020",
+		"useDefineForClassFields": true,
 		"module": "ESNext",
-		"moduleResolution": "Bundler",
+		"lib": [
+			"ES2020",
+			"DOM",
+			"DOM.Iterable"
+		],
+		"skipLibCheck": true,
+		"jsx": "react-jsx",
+		/* Bundler mode */
+		"moduleResolution": "bundler",
+		"allowImportingTsExtensions": true,
+		"isolatedModules": true,
+		"moduleDetection": "force",
+		"noEmit": true,
+
+		/* Linting */
 		"strict": true,
-		"noImplicitOverride": true,
 		"noUnusedLocals": true,
-		"useUnknownInCatchVariables": false,
-		"esModuleInterop": true,
-		"declaration": false,
-		"resolveJsonModule": true
+		"noUnusedParameters": true,
+		"noFallthroughCasesInSwitch": true
 	},
 	"include": [
-		"./**/rollup.config.ts"
+		"src",
+		"index.ts"
 	]
 }
