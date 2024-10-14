@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
 </head>
 <body>
 <div>
-  <button id="forward">前进</button>
-  <button id="back">后退</button>
+	<button id="forward">前进</button>
+	<button id="back">后退</button>
 </div>
 <script>
   const forward = document.querySelector('#forward')
@@ -24,6 +24,7 @@
   // hash更改，不会触发页面刷新，即load事件也不会触发
   window.addEventListener('hashchange', (ev) => {
     console.log('hashchange', ev)
+    console.log('old,new', ev.oldURL, ev.newURL)
   })
   // a.html -> a.html#/1 : 更改hash不会触发页面更新
 
@@ -63,6 +64,12 @@
   //    2.1 hash路由：hashchange监听路由更改 + load 监听页面刷新
   //    2.2 history路由：重写pushState和replaceState来触发更新事件，popstate事件监听前进后退，load 监听页面刷新
   // 设计：将上报pv功能交给用户手动上报
+
+  // 如何记录：从哪个页面跳转到哪个页面
+  // 1. 非spa应用无法记录
+  // 2. history模式：跳转之前可以记录旧地址
+  // 3. hash模式：事件对象中 newURL, oldURL 记录路径信息
+	//    hash模式时，还是会触发 popstate 事件，要如何处理？
 </script>
 </body>
 </html>
