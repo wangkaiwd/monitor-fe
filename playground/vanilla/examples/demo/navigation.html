@@ -11,16 +11,36 @@
 <div>
 	<button id="forward">前进</button>
 	<button id="back">后退</button>
+	<button id="historyPushState">push state</button>
+	<button id="historyReplaceState">replace state</button>
+	<button id="hashChange">hash change</button>
 </div>
 <script>
   const forward = document.querySelector('#forward')
   const back = document.querySelector('#back')
+  const historyPushState = document.querySelector('#historyPushState')
+  const historyReplaceState = document.querySelector('#historyReplaceState')
+  const hashChange = document.querySelector('#hashChange')
+
   forward.addEventListener('click', () => {
     history.go(1)
   })
   back.addEventListener('click', () => {
     history.go(-1)
   })
+
+  historyPushState.addEventListener('click', () => {
+    history.pushState({}, '', 'a')
+  })
+
+  historyReplaceState.addEventListener('click', () => {
+    history.replaceState({}, '', 'b')
+  })
+
+  hashChange.addEventListener('click', () => {
+    location.href = 'http://localhost:63342/monitor-fe/playground/vanilla/examples/demo/navigation.html?_ijt=rnfasjuvpkbi945p99fc62133i#/c'
+  })
+
   // hash更改，不会触发页面刷新，即load事件也不会触发
   window.addEventListener('hashchange', (ev) => {
     console.log('hashchange', ev)
@@ -69,7 +89,7 @@
   // 1. 非spa应用无法记录
   // 2. history模式：跳转之前可以记录旧地址
   // 3. hash模式：事件对象中 newURL, oldURL 记录路径信息
-	//    hash模式时，还是会触发 popstate 事件，要如何处理？
+  //    hash模式时，还是会触发 popstate 事件，要如何处理？
 </script>
 </body>
 </html>
