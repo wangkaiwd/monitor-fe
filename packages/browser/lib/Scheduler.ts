@@ -1,5 +1,5 @@
 import { request } from './request'
-import { nextTick } from './utils'
+import { listen, nextTick } from './utils'
 import { EventInfo, TimerId } from './types'
 import { defaultOptions } from './defaultOptions'
 import { baseOptions } from './Options'
@@ -24,9 +24,10 @@ export class Scheduler {
   constructor (threshold?: number, delayTime?: number) {
     this.threshold = threshold ?? defaultOptions.threshold
     this.delayTime = delayTime ?? defaultOptions.delayTime
+    this.beforeUnload()
   }
 
-  addTask = (task: Omit<EventInfo, 'triggerTime'> | Omit<EventInfo, 'triggerTime'>[]) => {
+  addTask = (task: Omit<EventInfo, 'triggerTime'> | Omit<EventInfo, 'triggerTime'>[], flush: boolean = false) => {
     if (this.timerId) {
       clearTimeout(this.timerId)
       this.timerId = null
@@ -42,7 +43,7 @@ export class Scheduler {
     })
     this.tasks.push(...tasksWithTime)
     if (this.pending) { return }
-    if (this.tasks.length >= this.threshold) {
+    if (flush || this.tasks.length >= this.threshold) {
       this.runTasks()
     } else {
       this.timerId = setTimeout(() => {
@@ -53,6 +54,9 @@ export class Scheduler {
   }
 
   runTasks = () => {
+    if (!this.tasks.length) {
+      return
+    }
     this.pending = true
     const events = this.tasks.slice(0, this.threshold)
     this.tasks = this.tasks.slice(this.threshold)
@@ -62,6 +66,12 @@ export class Scheduler {
     } else {
       this.pending = false
     }
+  }
+
+  beforeUnload = () => {
+    listen(window, 'beforeunload', () => {
+      this.addTask([], true)
+    })
   }
 }
 
