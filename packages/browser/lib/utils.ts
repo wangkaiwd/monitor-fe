@@ -21,11 +21,11 @@ export const uuid = () => {
  * Rewrite name property which from source
  * @param source
  * @param name
- * @param replace
+ * @param replacer
  */
-export const replaceAop = (source: Record<string, any>, name: string, replace: Function) => {
+export const replaceAop = (source: Record<string, any>, name: string, replacer: Function) => {
   const origin = source[name]
-  return source[name] = replace(origin)
+  return source[name] = replacer(origin)
 }
 
 export const listen = (
@@ -78,4 +78,13 @@ export const groupError = (arr: EventInfo[]) => {
     list.push(item)
   })
   return Object.values(result)
+}
+
+export const isAbsoluteUrl = (url: string) => {
+  const reg = /^(?:http:|https:|\/).*/
+  return reg.test(url)
+}
+
+export const getLocationHref = () => {
+  return window.location.href
 }

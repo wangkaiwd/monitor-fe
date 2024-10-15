@@ -20,10 +20,37 @@
   </style>
 </head>
 <body>
-<a href="/playground/performance/index.html">to performance</a>
-<button class="pv">pv</button>
-<div class="container"></div>
-<div class="box" appear></div>
-<script type="module" src="/playground/behavior/index.ts"></script>
+<div>
+  <button id="historyPushState">push state</button>
+  <button id="historyReplaceState">replace state</button>
+  <button id="hashChange">hash change</button>
+</div>
+<div>
+  <button class="pv">pv</button>
+  <div class="container"></div>
+  <div class="box" appear></div>
+</div>
+<a href="/examples/performance/index.html">to performance</a>
+<script type="module" src="/examples/behavior/index.ts"></script>
+<script>
+  const historyPushState = document.querySelector('#historyPushState')
+  const historyReplaceState = document.querySelector('#historyReplaceState')
+  const hashChange = document.querySelector('#hashChange')
+  const getRandom = () => {
+    return Math.ceil(Math.random() * 100)
+  }
+
+  historyPushState.addEventListener('click', () => {
+    history.pushState({}, '', getRandom())
+  })
+
+  historyReplaceState.addEventListener('click', () => {
+    history.replaceState({}, '', getRandom())
+  })
+
+  hashChange.addEventListener('click', () => {
+    location.href = `${location.pathname}#/${getRandom()}`
+  })
+</script>
 </body>
 </html>

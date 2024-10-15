@@ -5,12 +5,14 @@ import { MonitorOptions } from './types'
 import { createScheduler } from './Scheduler'
 import { baseOptions, createBaseOptions } from './Options'
 import { createBreadcrumbs } from './Breadcrumbs'
+import { initPV } from './pv'
 
 const initPerformance = () => {
   createPerformanceObserver()
 }
 
 const initBehavior = () => {
+  initPV()
   const { collect } = baseOptions.options
   if (collect.click) {
     // must trigger it in capture phase, ensure it before error event

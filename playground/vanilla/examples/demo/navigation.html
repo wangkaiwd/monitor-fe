@@ -1,19 +1,19 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-				content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
 </head>
 <body>
 <div>
-	<button id="forward">前进</button>
-	<button id="back">后退</button>
-	<button id="historyPushState">push state</button>
-	<button id="historyReplaceState">replace state</button>
-	<button id="hashChange">hash change</button>
+  <button id="forward">前进</button>
+  <button id="back">后退</button>
+  <button id="historyPushState">push state</button>
+  <button id="historyReplaceState">replace state</button>
+  <button id="hashChange">hash change</button>
 </div>
 <script>
   const forward = document.querySelector('#forward')
@@ -21,7 +21,9 @@
   const historyPushState = document.querySelector('#historyPushState')
   const historyReplaceState = document.querySelector('#historyReplaceState')
   const hashChange = document.querySelector('#hashChange')
-
+  const getRandom = () => {
+    return Math.ceil(Math.random() * 100)
+  }
   forward.addEventListener('click', () => {
     history.go(1)
   })
@@ -30,15 +32,15 @@
   })
 
   historyPushState.addEventListener('click', () => {
-    history.pushState({}, '', 'a')
+    history.pushState({}, '', getRandom())
   })
 
   historyReplaceState.addEventListener('click', () => {
-    history.replaceState({}, '', 'b')
+    history.replaceState({}, '', getRandom())
   })
 
   hashChange.addEventListener('click', () => {
-    location.href = 'http://localhost:63342/monitor-fe/playground/vanilla/examples/demo/navigation.html?_ijt=rnfasjuvpkbi945p99fc62133i#/c'
+    location.href = `${location.pathname}#/${getRandom()}`
   })
 
   // hash更改，不会触发页面刷新，即load事件也不会触发
@@ -53,7 +55,7 @@
     console.log('load', ev)
   })
 
-  // 更改hash也会触发？
+  // 注意：更改hash也会触发
   window.addEventListener('popstate', (ev) => {
     console.log('popstate', ev)
   })
@@ -77,19 +79,23 @@
   // 1. load 事件和 hashchange 事件按照预期执行
   // 2. 通过pushState和replaceState来更新url, 由于浏览器没有事件可以直接监听这种情况的更改，所以可以重写这俩个方法，然后在调用方法时通知url更新
   // 3. popstate 事件会在hash值更改，以及对pushState和replaceState触发的url更新的前进和后退时触发 （实践结论，没有找到文档记录）
+  //    触发顺序：popstate -> hashchange
 
   // 结论：
   // 1. 非 spa 应用，监听 load 事件
   // 2. spa 应用：
   //    2.1 hash路由：hashchange监听路由更改 + load 监听页面刷新
   //    2.2 history路由：重写pushState和replaceState来触发更新事件，popstate事件监听前进后退，load 监听页面刷新
-  // 设计：将上报pv功能交给用户手动上报
 
   // 如何记录：从哪个页面跳转到哪个页面
   // 1. 非spa应用无法记录
   // 2. history模式：跳转之前可以记录旧地址
   // 3. hash模式：事件对象中 newURL, oldURL 记录路径信息
   //    hash模式时，还是会触发 popstate 事件，要如何处理？
+
+  // pushState:
+  //   The new URL does not need to be absolute; If it's relative, it's resolved relative to the current URL.
+  // 检查 url 是否为相对路径
 </script>
 </body>
 </html>
