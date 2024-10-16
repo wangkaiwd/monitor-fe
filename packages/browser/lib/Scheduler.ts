@@ -9,7 +9,7 @@ import { baseOptions } from './Options'
  *  1. 批量上报
  *    1.1 达到最大数量阈值 threshold 时进行上报
  *    1.2 如果一值没达到最大阈值，在最后一次事件触发后延迟 delayTime 进行上报
- *   2. 分批进行上报，每次上报 threshold 个事件
+ *  2. 分批进行上报，每次上报 threshold 个事件
  *  3. 上报后如果还有事件未上报，在浏览器空闲时间继续重复上报逻辑
  *
  */

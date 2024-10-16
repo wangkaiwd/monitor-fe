@@ -10,6 +10,7 @@ export interface DefaultMonitorOptions {
   threshold: number
   delayTime: number
   maxBreadcrumbsCount: number
+  visitorId: string
 }
 
 export interface MonitorOptions extends Partial<DefaultMonitorOptions> {
@@ -35,6 +36,8 @@ export interface BaseInfo {
   url: string
   sendTime: number
   appId: string
+  visitorId: string
+  userId: string
 }
 
 export interface EventInfo {

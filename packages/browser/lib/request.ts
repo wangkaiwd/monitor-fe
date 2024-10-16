@@ -10,6 +10,8 @@ const createCommonParams = (): BaseInfo => {
     url,
     sendTime: timestamp,
     appId: baseOptions.options.appId,
+    userId: baseOptions.options.userId,
+    visitorId: baseOptions.options.visitorId
   }
 }
 

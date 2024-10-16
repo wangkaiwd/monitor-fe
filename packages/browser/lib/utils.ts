@@ -1,6 +1,7 @@
 import { AnyFn, EventInfo } from './types'
 import { scheduler } from './Scheduler'
 import { breadcrumbs } from './Breadcrumbs'
+import { ClientJS } from 'clientjs'
 
 export const getTarget = (ev: Event) => {
   const target = ev.target as HTMLElement
@@ -87,4 +88,9 @@ export const isAbsoluteUrl = (url: string) => {
 
 export const getLocationHref = () => {
   return window.location.href
+}
+
+export const getFingerprint = () => {
+  const clientJS = new ClientJS()
+  return clientJS.getFingerprint()
 }
