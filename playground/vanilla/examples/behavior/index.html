@@ -27,10 +27,14 @@
 </div>
 <div>
   <button class="pv">pv</button>
-  <div class="container"></div>
-  <div class="box" appear></div>
 </div>
 <a href="/examples/performance/index.html">to performance</a>
+<div>
+  <button class="expose">曝光</button>
+  <button class="cancel-expose">取消曝光</button>
+  <div class="container"></div>
+  <div class="box"></div>
+</div>
 <script type="module" src="/examples/behavior/index.ts"></script>
 <script>
   const historyPushState = document.querySelector('#historyPushState')
@@ -51,6 +55,7 @@
   hashChange.addEventListener('click', () => {
     location.href = `${location.pathname}#/${getRandom()}`
   })
+
 </script>
 </body>
 </html>

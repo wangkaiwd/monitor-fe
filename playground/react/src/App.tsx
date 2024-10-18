@@ -1,21 +1,13 @@
-import { useEffect, useState } from 'react'
+import ExposeDemo from './ExposeDemo.tsx'
 
-function App () {
-  const [count, setCount] = useState(1)
+const App = () => {
 
-  const onClick = () => {
-    throw Error('error')
-    setCount(count + 1)
-  }
-  useEffect(() => {
-    throw Error('react error')
-  }, [])
-  useEffect(() => {
-    setTimeout(() => {
-      throw Error('error')
-    })
-  }, [])
-  return <div onClick={onClick}>{count}</div>
+  return (
+    <div>
+      {/*<ErrorDemo/>*/}
+      <ExposeDemo/>
+    </div>
+  )
 }
 
 export default App

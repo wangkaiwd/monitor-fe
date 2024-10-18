@@ -1,18 +1,23 @@
-// todo: support export all single module and default whole module
-import { reportExpose, init, reportClick } from '@monitor-fe/core'
+// todo: support export all single module and default whole module like react
+import { createIntersection, init } from '@monitor-fe/core'
 
 init({
   appId: 'appId',
   userId: 'userId',
 })
 
-const pv = document.querySelector('.pv')!
 const box = document.querySelector('.box')!
+const expose = document.querySelector('.expose')!
+const cancelExpose = document.querySelector('.cancel-expose')!
 
-pv.addEventListener('click', (ev: Event) => {
-  reportClick(ev)
+let boxIntersectionObserver: IntersectionObserver | null = null
+expose.addEventListener('click', () => {
+  if (boxIntersectionObserver) {
+    boxIntersectionObserver.unobserve(box)
+  }
+  boxIntersectionObserver = createIntersection(box)
 })
 
-box.addEventListener('appear', (ev: Event) => {
-  reportExpose(ev)
+cancelExpose.addEventListener('click', () => {
+  boxIntersectionObserver?.unobserve(box)
 })
