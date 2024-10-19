@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.1](https://github.com/wangkaiwd/monitor-fe/compare/@monitor-fe/react@0.1.0...@monitor-fe/react@0.1.1) (2024-10-19)
+
+
+### Features
+
+* add expose params ([f6d2186](https://github.com/wangkaiwd/monitor-fe/commit/f6d218622c010ea732f42eb9a0cc40aff9d01f08))
+* support track expose ([d435b59](https://github.com/wangkaiwd/monitor-fe/commit/d435b59b919e6305bc99945f06b6f02e18c7f1a2))
+
+
+
+
+
 # [0.1.0](https://github.com/wangkaiwd/monitor-fe/compare/@monitor-fe/react@0.0.1...@monitor-fe/react@0.1.0) (2024-10-13)
 
 
