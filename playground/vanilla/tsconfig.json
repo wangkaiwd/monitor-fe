@@ -22,14 +22,6 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
-		"paths": {
-			"@monitor-fe/core/*": [
-				"../../packages/browser/*"
-			],
-			"@monitor-fe/core": [
-				"../../packages/browser/index.ts"
-			]
-		}
 	},
 	"include": [
 		"./examples",

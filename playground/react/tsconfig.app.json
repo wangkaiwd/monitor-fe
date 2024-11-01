@@ -23,20 +23,6 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"noFallthroughCasesInSwitch": true,
-    "paths": {
-      "@monitor-fe/core/*": [
-        "../../packages/browser/*"
-      ],
-      "@monitor-fe/core": [
-        "../../packages/browser/index.ts"
-      ],
-      "@monitor-fe/react/*": [
-        "../../packages/react/*"
-      ],
-      "@monitor-fe/react": [
-        "../../packages/react/index.ts"
-      ]
-    }
 	},
 	"include": [
 		"src"
