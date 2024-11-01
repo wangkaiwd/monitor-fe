@@ -4,12 +4,11 @@
   "type": "module",
   "packageManager": "pnpm@9.1.2",
   "scripts": {
-    "dev": "turbo dev",
-    "build": "pnpm -F './packages/**' build",
+    "demo:js": "turbo run dev --filter=./playground/vanilla --filter=./packages/browser",
+    "demo:react": "turbo run dev --filter=./playground/react --filter=./packages/react",
+    "build": "turbo run build --filter=./packages/*",
     "test:coverage": "vitest --coverage",
     "server": "tsx watch ./server/index.ts",
-    "demo:js": "pnpm -F './playground/vanilla' dev",
-    "demo:react": "pnpm -F './playground/react' dev",
     "clean": "rm -rf ./packages/*/dist",
     "test": "vitest"
   },
