@@ -8,6 +8,11 @@
 			"message": "chore(release): publish"
 		}
 	},
+	"targetDefaults": {
+		"build": {
+			"dependsOn": ["^build"]
+		}
+	},
 	"packages": [
 		"packages/*"
 	]

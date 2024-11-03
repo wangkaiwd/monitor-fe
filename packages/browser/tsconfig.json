@@ -10,8 +10,5 @@
 		"esModuleInterop": true,
 		"declaration": false,
 		"resolveJsonModule": true
-	},
-	"include": [
-		"./**/rollup.config.ts",
-	]
+	}
 }

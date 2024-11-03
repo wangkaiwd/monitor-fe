@@ -2,18 +2,18 @@
 	"name": "@monitor-fe/core",
 	"version": "0.1.1",
 	"description": "",
-	"main": "./dist/index.cjs.js",
-	"module": "./dist/index.esm.js",
-	"type": "module",
+	"module": "./dist/index.js",
+	"main": "./dist/index.cjs",
 	"types": "./dist/index.d.ts",
+	"type": "module",
 	"files": [
 		"dist",
 		"package.json",
 		"readme.md"
 	],
 	"scripts": {
-		"build": "rollup -c rollup.config.ts --configPlugin esbuild & pnpm dts",
-		"dts": "dts-bundle-generator -o dist/index.d.ts ./index.ts"
+		"dev": "tsup --watch",
+		"build": "tsup"
 	},
 	"publishConfig": {
 		"access": "public",
