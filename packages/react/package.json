@@ -2,9 +2,10 @@
   "name": "@monitor-fe/react",
   "version": "0.1.1",
   "description": "",
-  "module": "./dist/index.esm.js",
-  "main": "./dist/index.cjs.js",
-  "types": "./dist/index.d.mts",
+  "module": "./dist/index.js",
+  "main": "./dist/index.cjs",
+  "types": "./dist/index.d.ts",
+  "type": "module",
   "files": [
     "dist",
     "package.json",
