@@ -1,5 +1,5 @@
 import React, { ErrorInfo } from 'react'
-import { report } from '@monitor-fe/core/lib/utils.ts'
+import { report } from '@monitor-fe/core'
 
 interface Props {
   children: React.ReactNode
