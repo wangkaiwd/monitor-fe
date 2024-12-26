@@ -23,7 +23,7 @@
 
   const errorTrigger = () => {
     $('#jsError').addEventListener('click', () => {
-      throw new Error('This is a JavaScript error!')
+      throw new ClientError('This is a JavaScript error!')
     })
 
     $('#promiseError').addEventListener('click', () => {
