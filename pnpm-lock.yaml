@@ -137,6 +137,10 @@ importers:
         version: 5.4.2(@types/node@22.5.0)
 
   playground/vanilla:
+    dependencies:
+      '@monitor-fe/core':
+        specifier: workspace:*
+        version: link:../../packages/browser
     devDependencies:
       typescript:
         specifier: ^5.5.3
